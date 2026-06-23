@@ -187,6 +187,35 @@ function initStoryViewer() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeStoryViewer();
   });
+  window.addEventListener('resize', layoutStoryViewerInsets);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(layoutStoryViewerInsets, 100);
+  });
+}
+
+function layoutStoryViewerInsets() {
+  const modal = document.getElementById('story-viewer-modal');
+  const header = document.querySelector('.story-viewer-header');
+  const footer = document.querySelector('.story-viewer-footer');
+  const body = document.getElementById('story-viewer-body');
+
+  if (!modal?.classList.contains('active') || !header || !footer || !body) return;
+
+  if (window.innerWidth > 768) {
+    body.style.top = '';
+    body.style.bottom = '';
+    body.style.position = '';
+    return;
+  }
+
+  const headerHeight = header.getBoundingClientRect().height;
+  const footerHeight = footer.getBoundingClientRect().height;
+
+  body.style.position = 'fixed';
+  body.style.left = '0';
+  body.style.right = '0';
+  body.style.top = `${headerHeight}px`;
+  body.style.bottom = `${footerHeight}px`;
 }
 
 function hideViewerDownloadMessage() {
@@ -199,6 +228,7 @@ function hideViewerDownloadMessage() {
     box.classList.remove('is-fading');
     box.setAttribute('hidden', '');
   }
+  layoutStoryViewerInsets();
 }
 
 function fadeViewerDownloadMessage() {
@@ -223,6 +253,7 @@ function showDownloadProgressMessage() {
   box.classList.remove('is-fading');
   box.removeAttribute('hidden');
   viewerMsgTimer = setTimeout(fadeViewerDownloadMessage, 650);
+  layoutStoryViewerInsets();
 }
 
 function closeStoryViewer() {
@@ -263,17 +294,21 @@ function handleStoryView(btn) {
   hideViewerDownloadMessage();
 
   modal.classList.add('active');
+  document.documentElement.classList.add('viewer-open');
   document.body.classList.add('viewer-open');
-  document.body.dataset.scrollY = String(window.scrollY);
-  document.body.style.top = `-${window.scrollY}px`;
+  requestAnimationFrame(layoutStoryViewerInsets);
+  setTimeout(layoutStoryViewerInsets, 80);
 }
 
 function unlockBodyScroll() {
-  const scrollY = document.body.dataset.scrollY || '0';
+  document.documentElement.classList.remove('viewer-open');
   document.body.classList.remove('viewer-open');
-  document.body.style.top = '';
-  window.scrollTo(0, parseInt(scrollY, 10));
-  delete document.body.dataset.scrollY;
+  const body = document.getElementById('story-viewer-body');
+  if (body) {
+    body.style.top = '';
+    body.style.bottom = '';
+    body.style.position = '';
+  }
 }
 
 // ---------------------------------------------------------------------------
