@@ -1,0 +1,18 @@
+{
+  "name": "snapsaver",
+  "version": "1.0.0",
+  "description": "SnapSaver — Public Snapchat story viewer and downloader",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "cors": "^2.8.5",
+    "node-fetch": "^2.7.0"
+  }
+}

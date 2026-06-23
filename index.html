@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnapSaver — Free Snapchat Public Story Viewer & Downloader 2026</title>
+  <meta name="description" content="View and save public Snapchat stories, spotlights, and content. Free, fast, HD quality. A personal content backup tool for publicly shared Snapchat media.">
+  <meta name="keywords" content="snapchat downloader, snapchat story downloader, snapchat viewer, download snapchat stories, snapchat reels downloader, snap saver">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://thesnapsaver.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SnapSaver — Free Snapchat Public Story Viewer">
+  <meta property="og:description" content="A personal content backup tool to view and save public Snapchat stories and spotlights.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SnapSaver — Free Snapchat Public Story Viewer">
+  <meta name="twitter:description" content="A personal content backup tool to view and save public Snapchat stories in HD.">
+
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- FAQ Schema for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How can I save Snapchat stories anonymously?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter the Snapchat username or paste the profile URL into SnapSaver. Click Search to browse all available public stories, then hit Download to save them to your device for personal use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What quality are the downloaded videos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SnapSaver downloads content in the highest available quality, including HD when the source supports it. No watermarks are added."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is SnapSaver free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, SnapSaver is completely free. There are no hidden charges, subscriptions, or account requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download Snapchat Spotlights and Reels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, SnapSaver supports downloading stories, spotlights, reels, and any publicly shared Snapchat content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a Snapchat account to use this?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No account is needed. Simply enter the username or paste a URL to start downloading content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it safe to use SnapSaver?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolutely. SnapSaver does not collect personal data. All activity is anonymous and secure."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- WebSite Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SnapSaver",
+    "url": "https://thesnapsaver.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://thesnapsaver.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="/" class="nav-logo" id="logo">
+        <img src="images/logo.png" alt="SnapSaver Logo" width="36" height="36">
+        <span>Snap<span class="gradient-text">Saver</span></span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#tools">Tools</a>
+        <a href="#faq">FAQ</a>
+        <a href="#blog">Blog <span class="nav-badge">New</span></a>
+      </div>
+      <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-glow hero-glow--purple"></div>
+    <div class="hero-glow hero-glow--cyan"></div>
+    <div class="container">
+      <img src="images/logo.png" alt="SnapSaver" class="hero-logo" width="80" height="80">
+      <h1>View & Save Public Snapchat <span class="gradient-text">Content</span></h1>
+      <p class="hero-subtitle">Browse public stories, spotlights, and more — free, fast, and in HD quality. Save content for your personal collection.</p>
+
+      <form id="search-form" class="search-box" role="search">
+        <input type="text" id="search-input" placeholder="Enter Snapchat username or paste URL..." aria-label="Snapchat username or URL" autocomplete="off">
+        <button type="submit" class="btn-search" id="btn-search">Search</button>
+      </form>
+      <p class="search-hint">Supports username search and direct Snapchat URLs</p>
+
+      <!-- Content Type Tabs -->
+      <div class="content-tabs">
+        <button class="tab-btn active" data-type="all"><span class="tab-icon">🔍</span> All</button>
+        <button class="tab-btn" data-type="stories"><span class="tab-icon">📖</span> Stories</button>
+        <button class="tab-btn" data-type="spotlights"><span class="tab-icon">🌟</span> Spotlights</button>
+        <button class="tab-btn" data-type="reels"><span class="tab-icon">🎬</span> Reels</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOP BANNER AD ===== -->
+  <div class="ad-zone ad-zone--banner" id="ad-top-banner">
+    <!-- Google AdSense: Paste your leaderboard ad unit code here -->
+  </div>
+
+  <!-- ===== RESULTS SECTION (appears after search) ===== -->
+  <section class="results-section" id="results-section">
+    <div class="container">
+
+      <!-- User Profile Header -->
+      <div class="profile-header" id="profile-header">
+        <div class="profile-avatar" id="profile-avatar-container">
+          <img id="profile-avatar-img" src="" alt="Avatar" style="display: none; width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+          <span id="profile-avatar-fallback">👻</span>
+        </div>
+        <div class="profile-info">
+          <h2 class="profile-name" id="profile-name">—</h2>
+          <p class="profile-username" id="profile-username">@username</p>
+          <p class="profile-bio" id="profile-bio" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;"></p>
+        </div>
+        <div class="profile-stats">
+          <div class="stat-item" style="margin-bottom: 8px;">
+            <span class="stat-value" id="subscriber-count" style="font-size: 1.2rem;">0</span>
+            <span class="stat-label">Subscribers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value" id="story-count">0</span>
+            <span class="stat-label">Active Stories</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Download All Bar -->
+      <div class="download-all-bar" id="download-all-bar">
+        <p><strong id="total-stories-label">0 stories</strong> currently available</p>
+        <button class="btn-download-all" id="btn-download-all">⬇ Download All</button>
+      </div>
+
+      <!-- Story List -->
+      <div class="story-list" id="story-list">
+        <!-- Stories are injected here by JS -->
+      </div>
+
+      <!-- In-results ad -->
+      <div class="ad-zone ad-zone--native" style="margin-top: 24px;">
+        <!-- Google AdSense: Paste your in-feed native ad unit code here -->
+      </div>
+
+      <!-- Error state -->
+      <div class="results-error" id="results-error">
+        <div class="error-icon">😕</div>
+        <h3>No Active Stories</h3>
+        <p>This account doesn't have any public stories right now.<br>Double-check the username and make sure the profile is set to public.</p>
+        <button class="btn-try-again" id="btn-try-again">🔍 Search Again</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features">
+    <div class="container">
+      <h2 class="section-title">Why Choose <span class="gradient-text">SnapSaver</span>?</h2>
+      <p class="section-subtitle">The most powerful and user-friendly Snapchat content downloader available.</p>
+
+      <div class="features-grid">
+        <article class="feature-card" id="feature-stories">
+          <div class="feature-icon">📖</div>
+          <h3>Story Downloader</h3>
+          <p>Save any public Snapchat story directly to your device without watermarks or notifications.</p>
+        </article>
+        <article class="feature-card" id="feature-spotlight">
+          <div class="feature-icon">🌟</div>
+          <h3>Spotlight Saver</h3>
+          <p>Download trending Spotlight videos from any public account in original HD quality.</p>
+        </article>
+        <article class="feature-card" id="feature-quality">
+          <div class="feature-icon">🎯</div>
+          <h3>HD Quality</h3>
+          <p>All content is saved in the highest resolution available — crystal clear, every time.</p>
+        </article>
+        <article class="feature-card" id="feature-fast">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Our optimized servers deliver your downloads in seconds, not minutes.</p>
+        </article>
+        <article class="feature-card" id="feature-anonymous">
+          <div class="feature-icon">🔒</div>
+          <h3>Private & Secure</h3>
+          <p>Your searches are processed in real-time and never stored. We respect your privacy completely.</p>
+        </article>
+        <article class="feature-card" id="feature-free">
+          <div class="feature-icon">🎁</div>
+          <h3>Completely Free</h3>
+          <p>No subscriptions, no sign-ups, no hidden fees. Unlimited downloads forever.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MID-CONTENT AD ===== -->
+  <div class="ad-zone ad-zone--banner" id="ad-mid-content">
+    <!-- Google AdSense: Paste your in-article responsive ad unit code here -->
+  </div>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+      <p class="section-subtitle">Download any Snapchat content in just three simple steps.</p>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Enter Username or URL</h3>
+          <p>Type the Snapchat username or paste the direct link to the content you want to save.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Browse Content</h3>
+          <p>View all available stories, spotlights, and reels. Preview before downloading.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Download &amp; Save</h3>
+          <p>Click download and the content saves directly to your device. No app needed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOOLS ===== -->
+  <section class="tools-section" id="tools">
+    <div class="container">
+      <h2 class="section-title">Featured <span class="gradient-text">Tools</span></h2>
+      <p class="section-subtitle">Explore more helpful tools and guides for Snapchat.</p>
+
+      <div class="tools-grid">
+        <a href="#" class="tool-card" id="tool-score">
+          <div class="tool-icon">📊</div>
+          <div>
+            <h3>Snap Score Guide</h3>
+            <p>Learn what your score means and how to increase it</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+        <a href="#" class="tool-card" id="tool-verify">
+          <div class="tool-icon">✅</div>
+          <div>
+            <h3>Get Verified on Snap</h3>
+            <p>Step-by-step guide to earning your gold star</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+        <a href="#" class="tool-card" id="tool-profile">
+          <div class="tool-icon">👤</div>
+          <div>
+            <h3>Create Public Profile</h3>
+            <p>Make your profile discoverable to everyone</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+        <a href="#" class="tool-card" id="tool-plus">
+          <div class="tool-icon">⭐</div>
+          <div>
+            <h3>Detect Snap+ Users</h3>
+            <p>Spot who has Snapchat Plus subscription</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+        <a href="#" class="tool-card" id="tool-troubleshoot">
+          <div class="tool-icon">🔧</div>
+          <div>
+            <h3>Troubleshooting Guide</h3>
+            <p>Fix common Snapchat problems quickly</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+        <a href="#" class="tool-card" id="tool-delete">
+          <div class="tool-icon">🗑️</div>
+          <div>
+            <h3>Delete Account Guide</h3>
+            <p>How to deactivate or permanently delete</p>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BEFORE-FAQ AD ===== -->
+  <div class="ad-zone ad-zone--banner" id="ad-before-faq">
+    <!-- Google AdSense: Paste your responsive display ad unit code here -->
+  </div>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+      <p class="section-subtitle">Everything you need to know about SnapSaver.</p>
+
+      <div class="faq-list">
+        <div class="faq-item" id="faq-1">
+          <button class="faq-question" aria-expanded="false">
+            How can I save Snapchat stories anonymously?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Enter the Snapchat username or paste the content URL into SnapSaver. Click Search, browse the results, and hit Download. The user will not be notified — your activity is completely anonymous.</div></div>
+        </div>
+        <div class="faq-item" id="faq-2">
+          <button class="faq-question" aria-expanded="false">
+            What quality are the downloaded videos?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">SnapSaver downloads content in the highest available quality, including HD when the source supports it. No watermarks or quality reduction — you get the original file.</div></div>
+        </div>
+        <div class="faq-item" id="faq-3">
+          <button class="faq-question" aria-expanded="false">
+            Is SnapSaver free to use?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes, SnapSaver is completely free. There are no hidden charges, premium tiers, or account requirements. Download as much as you want, whenever you want.</div></div>
+        </div>
+        <div class="faq-item" id="faq-4">
+          <button class="faq-question" aria-expanded="false">
+            Can I download Spotlights and Reels too?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. SnapSaver supports stories, spotlights, reels, and any publicly shared Snapchat content. Use the tabs to filter by content type.</div></div>
+        </div>
+        <div class="faq-item" id="faq-5">
+          <button class="faq-question" aria-expanded="false">
+            Do I need a Snapchat account?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">No account is needed at all. Simply enter the username or paste a URL and start downloading immediately. No sign-up, no login.</div></div>
+        </div>
+        <div class="faq-item" id="faq-6">
+          <button class="faq-question" aria-expanded="false">
+            Is it safe and private?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. SnapSaver does not collect or store any personal data. All activity is anonymous, encrypted, and secure. We respect your privacy completely.</div></div>
+        </div>
+        <div class="faq-item" id="faq-7">
+          <button class="faq-question" aria-expanded="false">
+            Are there any download limits?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">No, there are no download limits. Save as many stories, spotlights, and reels as you need. However, please respect the content creators and platform guidelines.</div></div>
+        </div>
+        <div class="faq-item" id="faq-8">
+          <button class="faq-question" aria-expanded="false">
+            Does it work on mobile devices?
+            <span class="faq-chevron">▾</span>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes! SnapSaver is fully optimized for mobile, tablet, and desktop. No app installation required — works directly in your browser on any device.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER AD ===== -->
+  <div class="ad-zone ad-zone--banner" id="ad-footer">
+    <!-- Google AdSense: Paste your footer banner ad unit code here -->
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo">
+            <img src="images/logo.png" alt="SnapSaver" width="36" height="36">
+            <span>Snap<span class="gradient-text">Saver</span></span>
+          </a>
+          <p>The easiest way to download and view Snapchat content anonymously. Free, fast, and secure. No account required.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tools</h4>
+          <a href="#">Story Downloader</a>
+          <a href="#">Spotlight Saver</a>
+          <a href="#">Reel Downloader</a>
+          <a href="#">Snap Score Checker</a>
+        </div>
+        <div class="footer-col">
+          <h4>Guides</h4>
+          <a href="#">Get Verified</a>
+          <a href="#">Public Profile</a>
+          <a href="#">Score Guide</a>
+          <a href="#">Troubleshooting</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/dmca.html">DMCA</a>
+          <a href="mailto:contact@snapsaver.com">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SnapSaver. All rights reserved. Not affiliated with Snapchat Inc.</p>
+        <div>
+          <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/dmca.html">DMCA</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== STICKY BOTTOM AD ===== -->
+  <div class="ad-zone ad-zone--sticky" id="sticky-ad" style="display: none;">
+    <button class="ad-close" aria-label="Close ad">✕</button>
+    <!-- Google AdSense: Paste your anchor/sticky ad unit code here -->
+  </div>
+
+  <!-- ===== SCROLL TO TOP ===== -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <!-- ===== LOADING MODAL ===== -->
+  <div class="modal-overlay" id="loading-modal">
+    <div class="modal">
+      <div class="loader"></div>
+      <h3>Finding Stories...</h3>
+      <p>Hang tight! We're loading the latest content for you.</p>
+      <div class="ad-zone ad-zone--rect">
+        <!-- Google AdSense: Paste your 300x250 interstitial ad unit code here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js?v=7"></script>
+</body>
+</html>
