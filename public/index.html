@@ -470,21 +470,24 @@
     </div>
   </div>
 
-  <!-- ===== STORY VIEWER MODAL ===== -->
+  <!-- ===== STORY VIEWER POPUP ===== -->
   <div class="modal-overlay" id="story-viewer-modal">
-    <div class="story-viewer">
-      <div class="story-viewer-drag-handle" aria-hidden="true"></div>
+    <div class="story-viewer" id="story-viewer-card">
       <div class="story-viewer-header">
         <h3 id="story-viewer-title">Story</h3>
         <button class="story-viewer-close" id="story-viewer-close" type="button" aria-label="Close">✕</button>
       </div>
       <div class="story-viewer-body" id="story-viewer-body"></div>
       <div class="story-viewer-footer">
+        <div class="story-download-msg" id="story-viewer-download-msg" hidden>
+          <span class="story-download-msg-text" id="story-viewer-download-msg-text"></span>
+          <button type="button" class="story-download-msg-close" id="story-viewer-download-msg-close" aria-label="Close">✕</button>
+        </div>
         <button class="story-download-btn" id="story-viewer-download" type="button">⬇ Download</button>
       </div>
     </div>
   </div>
 
-  <script src="js/app.js?v=13"></script>
+  <script src="js/app.js?v=19"></script>
 </body>
 </html>

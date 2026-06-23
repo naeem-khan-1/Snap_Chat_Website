@@ -174,15 +174,55 @@ function initSearch() {
 
 function initStoryViewer() {
   const modal = document.getElementById('story-viewer-modal');
+  const card = document.getElementById('story-viewer-card');
   const closeBtn = document.getElementById('story-viewer-close');
+  const msgCloseBtn = document.getElementById('story-viewer-download-msg-close');
 
   closeBtn?.addEventListener('click', closeStoryViewer);
+  msgCloseBtn?.addEventListener('click', hideViewerDownloadMessage);
+  card?.addEventListener('click', (e) => e.stopPropagation());
   modal?.addEventListener('click', (e) => {
     if (e.target === modal) closeStoryViewer();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeStoryViewer();
   });
+}
+
+function hideViewerDownloadMessage() {
+  if (viewerMsgTimer) {
+    clearTimeout(viewerMsgTimer);
+    viewerMsgTimer = null;
+  }
+  const box = document.getElementById('story-viewer-download-msg');
+  if (box) {
+    box.classList.remove('is-fading');
+    box.setAttribute('hidden', '');
+  }
+}
+
+function fadeViewerDownloadMessage() {
+  const box = document.getElementById('story-viewer-download-msg');
+  if (!box || box.hasAttribute('hidden')) return;
+  box.classList.add('is-fading');
+  viewerMsgTimer = setTimeout(hideViewerDownloadMessage, 280);
+}
+
+function showDownloadProgressMessage() {
+  const box = document.getElementById('story-viewer-download-msg');
+  const text = document.getElementById('story-viewer-download-msg-text');
+  if (!box || !text) return;
+
+  if (viewerMsgTimer) {
+    clearTimeout(viewerMsgTimer);
+    viewerMsgTimer = null;
+  }
+
+  text.textContent = 'Downloading in progress!';
+  box.className = 'story-download-msg story-download-msg--progress';
+  box.classList.remove('is-fading');
+  box.removeAttribute('hidden');
+  viewerMsgTimer = setTimeout(fadeViewerDownloadMessage, 650);
 }
 
 function closeStoryViewer() {
@@ -192,8 +232,9 @@ function closeStoryViewer() {
 
   video?.pause();
   body.innerHTML = '';
+  hideViewerDownloadMessage();
   modal?.classList.remove('active');
-  document.body.classList.remove('viewer-open');
+  unlockBodyScroll();
 }
 
 function handleStoryView(btn) {
@@ -219,9 +260,20 @@ function handleStoryView(btn) {
   downloadBtn.dataset.url = url;
   downloadBtn.dataset.type = type;
   downloadBtn.onclick = () => handleStoryDownload(downloadBtn);
+  hideViewerDownloadMessage();
 
   modal.classList.add('active');
   document.body.classList.add('viewer-open');
+  document.body.dataset.scrollY = String(window.scrollY);
+  document.body.style.top = `-${window.scrollY}px`;
+}
+
+function unlockBodyScroll() {
+  const scrollY = document.body.dataset.scrollY || '0';
+  document.body.classList.remove('viewer-open');
+  document.body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY, 10));
+  delete document.body.dataset.scrollY;
 }
 
 // ---------------------------------------------------------------------------
@@ -395,6 +447,14 @@ function handleStoryDownload(btn) {
   btn.classList.add('downloading');
   btn.disabled = true;
 
+  const isViewerDownload = btn.id === 'story-viewer-download';
+
+  if (isViewerDownload) {
+    showDownloadProgressMessage();
+  } else {
+    showDismissibleToast('Downloading in progress!', 'progress', 650);
+  }
+
   try {
     const ext      = type === 'video' ? 'mp4' : 'jpg';
     const filename = `snapsaver_${Date.now()}.${ext}`;
@@ -406,63 +466,72 @@ function handleStoryDownload(btn) {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-
-    btn.innerHTML = '✅ Downloaded';
-    showToast('Downloaded successfully! Check your Downloads folder or gallery.', 'success');
   } catch (err) {
     console.error('Download failed:', err);
     btn.innerHTML = '❌ Failed';
-    showToast('Download failed. Please check your connection and try again.', 'error');
+    hideViewerDownloadMessage();
+    showDismissibleToast('Download failed. Please try again.', 'error', 4000);
   }
 
-  // Reset button after a short delay
   setTimeout(() => {
     btn.innerHTML = originalText;
     btn.classList.remove('downloading');
     btn.disabled = false;
-  }, 2500);
+  }, 900);
 }
 
 // ---------------------------------------------------------------------------
-//  Toast Notification — User-friendly messages
+//  Toast Notification — Dismissible messages with close button
 // ---------------------------------------------------------------------------
 
+let toastTimer = null;
+let viewerMsgTimer = null;
+
 /**
- * Shows a non-intrusive toast message at the bottom of the screen.
- * Auto-dismisses after 4 seconds.
- *
- * @param {string} message — The message to display
- * @param {'default'|'success'|'error'} type — Toast style
+ * Shows a toast with a close (✕) button.
+ * @param {string} message
+ * @param {'default'|'success'|'error'|'progress'} type
+ * @param {number} duration — Auto-hide ms (0 = stay until closed or replaced)
  */
-function showToast(message, type = 'default') {
-  // Remove any existing toast
+function showDismissibleToast(message, type = 'default', duration = 5000) {
+  if (toastTimer) {
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
+
   const existing = document.getElementById('snapsaver-toast');
   if (existing) existing.remove();
 
-  const borderColor = type === 'success'
-    ? 'rgba(34, 197, 94, 0.45)'
-    : type === 'error'
-      ? 'rgba(239, 68, 68, 0.45)'
-      : 'rgba(139, 92, 246, 0.3)';
-
   const toast = document.createElement('div');
   toast.id = 'snapsaver-toast';
-  toast.textContent = message;
-  toast.style.cssText = `
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: rgba(30, 30, 60, 0.95); color: #fff; padding: 14px 28px;
-    border-radius: 12px; font-size: 0.9rem; z-index: 99999;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4); backdrop-filter: blur(12px);
-    border: 1px solid ${borderColor}; max-width: 90vw; text-align: center;
-    animation: fadeUp 0.3s ease;
+  toast.className = `snapsaver-toast snapsaver-toast--${type}`;
+  toast.innerHTML = `
+    <span class="snapsaver-toast-text">${message}</span>
+    <button type="button" class="snapsaver-toast-close" aria-label="Close">✕</button>
   `;
+
+  const closeToast = () => {
+    if (toastTimer) {
+      clearTimeout(toastTimer);
+      toastTimer = null;
+    }
+    toast.classList.add('is-closing');
+    setTimeout(() => toast.remove(), 200);
+  };
+
+  toast.querySelector('.snapsaver-toast-close')?.addEventListener('click', closeToast);
   document.body.appendChild(toast);
 
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transition = 'opacity 0.3s ease';
-    setTimeout(() => toast.remove(), 300);
-  }, 4000);
+  if (duration > 0) {
+    toastTimer = setTimeout(closeToast, duration);
+  }
+}
+
+/**
+ * Simple toast for short system messages.
+ */
+function showToast(message, type = 'default') {
+  showDismissibleToast(message, type, 4000);
 }
 
 // ---------------------------------------------------------------------------
