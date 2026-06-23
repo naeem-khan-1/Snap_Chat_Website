@@ -252,7 +252,7 @@ function fadeViewerDownloadMessage() {
   const box = document.getElementById('story-viewer-download-msg');
   if (!box || box.hasAttribute('hidden')) return;
   box.classList.add('is-fading');
-  viewerMsgTimer = setTimeout(hideViewerDownloadMessage, 280);
+  viewerMsgTimer = setTimeout(hideViewerDownloadMessage, 560);
 }
 
 function showDownloadProgressMessage() {
@@ -261,7 +261,7 @@ function showDownloadProgressMessage() {
   const isMobile = window.innerWidth <= 768;
 
   if (isMobile) {
-    showDismissibleToast('Downloading in progress!', 'progress', 650);
+    showDismissibleToast('Downloading in progress!', 'progress', 1300);
     return;
   }
 
@@ -276,7 +276,7 @@ function showDownloadProgressMessage() {
   box.className = 'story-download-msg story-download-msg--progress';
   box.classList.remove('is-fading');
   box.removeAttribute('hidden');
-  viewerMsgTimer = setTimeout(fadeViewerDownloadMessage, 650);
+  viewerMsgTimer = setTimeout(fadeViewerDownloadMessage, 1300);
   layoutStoryViewerInsets();
 }
 
@@ -515,7 +515,7 @@ function handleStoryDownload(btn) {
       otherBtn.disabled = true;
     }
   } else {
-    showDismissibleToast('Downloading in progress!', 'progress', 650);
+    showDismissibleToast('Downloading in progress!', 'progress', 1300);
   }
 
   try {
@@ -588,7 +588,7 @@ function showDismissibleToast(message, type = 'default', duration = 5000) {
       toastTimer = null;
     }
     toast.classList.add('is-closing');
-    setTimeout(() => toast.remove(), 200);
+    setTimeout(() => toast.remove(), 400);
   };
 
   toast.querySelector('.snapsaver-toast-close')?.addEventListener('click', closeToast);

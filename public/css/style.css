@@ -928,7 +928,7 @@ video.story-viewer-media {
 
 .story-download-msg.is-fading {
   opacity: 0;
-  transition: opacity 0.28s ease;
+  transition: opacity 0.56s ease;
 }
 
 .story-download-msg--success {
@@ -1028,7 +1028,7 @@ body.viewer-open {
 
 .snapsaver-toast.is-closing {
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.4s ease;
 }
 
 /* Results error / empty state */
