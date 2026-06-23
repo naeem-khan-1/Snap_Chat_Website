@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';if(d)document.documentElement.setAttribute('data-theme','dark');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'/images/logo.png':'/images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
   <title>SnapSaver Blogs — Snapchat Guides, Privacy Tips & Downloader Tutorials</title>
   <meta name="description" content="Expert guides on Snapchat privacy, story downloading, SnapSaver tutorials, Spotlight tips, and mobile how-tos. Free SEO-friendly Snapchat resources.">
   <meta name="keywords" content="snapchat blogs, snapchat guides, snapchat privacy, snapchat downloader tutorial, snapsaver blogs">
@@ -11,9 +13,9 @@
   <meta property="og:image" content="https://thesnapsaver.com/blogs/images/blog-index-hero.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://thesnapsaver.com/blogs/images/blog-index-hero.png">
-  <link rel="icon" href="/images/logo.png" type="image/png">
+  <link rel="icon" href="/images/logo-light.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/blog.css">
+  <link rel="stylesheet" href="/css/blog.css?v=2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,7 +32,7 @@
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="/" class="nav-logo" id="logo">
-        <img src="/images/logo.png" alt="SnapSaver Logo" width="36" height="36">
+        <img src="/images/logo-light.png" data-src-light="/images/logo-light.png" data-src-dark="/images/logo.png" alt="SnapSaver Logo" class="theme-image" width="36" height="36">
         <span>Snap<span class="gradient-text">Saver</span></span>
       </a>
       <div class="nav-links" id="nav-links">
@@ -40,131 +42,142 @@
         <a href="/#faq">FAQ</a>
         <a href="/blogs/">Blogs <span class="nav-badge">New</span></a>
       </div>
-      <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to night mode" title="Night mode">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
+      </div>
     </div>
   </nav>
 
 <main class="blog-page">
   <div class="container">
-    <figure class="blog-index-hero-image">
-      <img src="/blogs/images/blog-index-hero.png" alt="SnapSaver Blogs — Snapchat guides and tutorials" width="1200" height="400" loading="eager">
-    </figure>
-    <div class="blog-hero">
+    <header class="blog-index-header">
       <h1>SnapSaver <span class="gradient-text">Blogs</span></h1>
-      <p>Guides on Snapchat privacy, story downloading, Spotlight tips, and how to use SnapSaver responsibly on any device.</p>
-    </div>
-    <div class="blog-grid">
-
-        <a href="/blogs/how-to-download-snapchat-stories-without-watermark.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-download-stories.png" alt="How to Download Snapchat Stories Without Watermark in 2026" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Downloader Guide</span>
-            <h2>How to Download Snapchat Stories Without Watermark in 2026</h2>
-            <p>Learn how to download Snapchat stories without watermark in HD. Free step-by-step guide using SnapSaver for public stories, spotlights and highlights.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
+      <p>Guides on Snapchat privacy, downloading, and creator tools — written by people who actually use the product.</p>
+    </header>
+    
+    <article class="blog-featured">
+      <div class="blog-featured-visual">
+        <a href="/blogs/how-to-save-your-own-snapchat-content-legally.html">
+          <img src="/blogs/images/blog-save-own-content-light.png" data-src-light="/blogs/images/blog-save-own-content-light.png" data-src-dark="/blogs/images/blog-save-own-content.png" alt="Saving Your Own Snapchat Content — the Right Way" class="theme-image" width="800" height="500" loading="eager">
         </a>
-        <a href="/blogs/snapchat-privacy-settings-complete-guide.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-privacy-settings.png" alt="Snapchat Privacy Settings: Complete Guide for 2026" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Privacy</span>
-            <h2>Snapchat Privacy Settings: Complete Guide for 2026</h2>
-            <p>Master every Snapchat privacy setting — who can contact you, view your story, see your location, and how to protect your account data.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/how-to-use-snapsaver-snapchat-downloader.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-snapsaver-tutorial.png" alt="How to Use SnapSaver: Complete Snapchat Downloader Guide" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">SnapSaver Tool</span>
-            <h2>How to Use SnapSaver: Complete Snapchat Downloader Guide</h2>
-            <p>Step-by-step tutorial for using SnapSaver to view and download public Snapchat stories, spotlights and videos on any device.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/snapchat-spotlight-vs-stories-difference.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-spotlight-vs-stories.png" alt="Snapchat Spotlight vs Stories: What's the Difference?" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Snapchat Guide</span>
-            <h2>Snapchat Spotlight vs Stories: What's the Difference?</h2>
-            <p>Understand the difference between Snapchat Stories and Spotlight — format, audience, duration, and how to download each type of public content.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/is-downloading-snapchat-stories-safe-and-legal.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-safe-legal.png" alt="Is Downloading Snapchat Stories Safe and Legal?" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Privacy & Legal</span>
-            <h2>Is Downloading Snapchat Stories Safe and Legal?</h2>
-            <p>Learn whether downloading Snapchat stories is safe and legal. Privacy risks, copyright rules, and responsible use of Snapchat download tools explained.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/how-to-view-snapchat-stories-anonymously.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-anonymous-viewer.png" alt="How to View Snapchat Stories Anonymously (2026 Guide)" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Privacy</span>
-            <h2>How to View Snapchat Stories Anonymously (2026 Guide)</h2>
-            <p>View public Snapchat stories anonymously without logging in. Learn how anonymous story viewers work and how to protect your own privacy on Snapchat.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/download-snapchat-videos-on-iphone-and-android.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-mobile-download.png" alt="How to Download Snapchat Videos on iPhone and Android" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Mobile Guide</span>
-            <h2>How to Download Snapchat Videos on iPhone and Android</h2>
-            <p>Download Snapchat videos on iPhone, iPad and Android phones. Browser-based method — no app store download, no jailbreak required.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/how-to-create-snapchat-public-profile.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-public-profile.png" alt="How to Create a Snapchat Public Profile (Step-by-Step)" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Snapchat Guide</span>
-            <h2>How to Create a Snapchat Public Profile (Step-by-Step)</h2>
-            <p>Create a Snapchat public profile to reach new audiences. Learn requirements, setup steps, and privacy tips for public creators.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/snapchat-data-privacy-what-you-need-to-know.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-data-privacy.png" alt="Snapchat Data Privacy: What You Need to Know in 2026" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Privacy</span>
-            <h2>Snapchat Data Privacy: What You Need to Know in 2026</h2>
-            <p>What data does Snapchat collect? Learn about location tracking, ad targeting, story privacy, and how to minimize your digital footprint on Snap.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
-        <a href="/blogs/how-to-save-your-own-snapchat-content-legally.html" class="blog-card">
-          <div class="blog-card-visual">
-            <img src="/blogs/images/blog-save-own-content.png" alt="How to Save Your Own Snapchat Content Legally" width="600" height="338" loading="lazy">
-          </div>
-          <div class="blog-card-body">
-            <span class="blog-card-tag">Legal Guide</span>
-            <h2>How to Save Your Own Snapchat Content Legally</h2>
-            <p>The right way to backup your own Snapchat stories, spotlights and memories. Legal personal archiving tips for creators and everyday users.</p>
-            <span class="blog-card-link">Read article →</span>
-          </div>
-        </a>
+      </div>
+      <div class="blog-featured-body">
+        <span class="blog-featured-tag">Legal Guide</span>
+        <h2><a href="/blogs/how-to-save-your-own-snapchat-content-legally.html">Saving Your Own Snapchat Content — the Right Way</a></h2>
+        <p>Creators lose years of work to expired stories. Here is how to archive what is yours without stepping on someone else's rights.</p>
+        <div class="blog-featured-meta">
+          <span class="post-avatar" aria-hidden="true">EV</span>
+          <span>Elena Vasquez</span>
+          <span class="blog-feed-dot">Jun 23, 2026</span>
+          <span>7 min read</span>
+        </div>
+      </div>
+    </article>
+    <div class="blog-feed">
+      
+    <a href="/blogs/how-to-use-snapsaver-snapchat-downloader.html" class="blog-feed-item">
+      <div class="blog-feed-tag">SnapSaver Tool</div>
+      <h2 class="blog-feed-title">How to Use SnapSaver — A Practical Walkthrough</h2>
+      <p class="blog-feed-excerpt">No fluff, no signup wall. Just the fastest path from username to downloaded file.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">JO</span>
+        <span>James Okonkwo</span>
+        <span class="blog-feed-dot">Jun 22, 2026</span>
+        <span>7 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/download-snapchat-videos-on-iphone-and-android.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Mobile Guide</div>
+      <h2 class="blog-feed-title">Downloading Snapchat Videos on Your Phone — iPhone & Android</h2>
+      <p class="blog-feed-excerpt">Skip the sketchy apps. Your browser already does the job.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">JO</span>
+        <span>James Okonkwo</span>
+        <span class="blog-feed-dot">Jun 21, 2026</span>
+        <span>8 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/how-to-download-snapchat-stories-without-watermark.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Downloader Guide</div>
+      <h2 class="blog-feed-title">How to Download Snapchat Stories Without Watermark in 2026</h2>
+      <p class="blog-feed-excerpt">Public stories disappear in 24 hours. Here's how to save them in original quality — without extra logos stamped on top.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">MC</span>
+        <span>Marcus Chen</span>
+        <span class="blog-feed-dot">Jun 20, 2026</span>
+        <span>8 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/is-downloading-snapchat-stories-safe-and-legal.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Privacy & Legal</div>
+      <h2 class="blog-feed-title">Is Downloading Snapchat Stories Safe — and Legal?</h2>
+      <p class="blog-feed-excerpt">Straight talk, no scare tactics. What the risks actually are when you use a browser downloader.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">EV</span>
+        <span>Elena Vasquez</span>
+        <span class="blog-feed-dot">Jun 19, 2026</span>
+        <span>9 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/snapchat-privacy-settings-complete-guide.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Privacy</div>
+      <h2 class="blog-feed-title">Snapchat Privacy Settings: The Complete Guide for 2026</h2>
+      <p class="blog-feed-excerpt">Most people set up Snapchat once and never look back. These are the settings worth revisiting — especially if strangers can find you.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">PS</span>
+        <span>Priya Sharma</span>
+        <span class="blog-feed-dot">Jun 18, 2026</span>
+        <span>10 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/how-to-view-snapchat-stories-anonymously.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Privacy</div>
+      <h2 class="blog-feed-title">Watching Public Snapchat Stories Without Logging In</h2>
+      <p class="blog-feed-excerpt">You do not need an account to browse public profiles. Here is what anonymous viewing really means — and what it does not.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">PS</span>
+        <span>Priya Sharma</span>
+        <span class="blog-feed-dot">Jun 17, 2026</span>
+        <span>7 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/snapchat-data-privacy-what-you-need-to-know.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Privacy</div>
+      <h2 class="blog-feed-title">What Snapchat Actually Collects About You in 2026</h2>
+      <p class="blog-feed-excerpt">The privacy policy is 8,000 words. These are the bullets that affect your daily life.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">PS</span>
+        <span>Priya Sharma</span>
+        <span class="blog-feed-dot">Jun 16, 2026</span>
+        <span>10 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/snapchat-spotlight-vs-stories-difference.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Snapchat Guide</div>
+      <h2 class="blog-feed-title">Spotlight vs Stories: What Snapchat Won't Explain Clearly</h2>
+      <p class="blog-feed-excerpt">They look like the same vertical video. They are not. The difference changes who sees your content and how long it sticks around.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">NB</span>
+        <span>Nora Blake</span>
+        <span class="blog-feed-dot">Jun 15, 2026</span>
+        <span>6 min read</span>
+      </div>
+    </a>
+    <a href="/blogs/how-to-create-snapchat-public-profile.html" class="blog-feed-item">
+      <div class="blog-feed-tag">Snapchat Guide</div>
+      <h2 class="blog-feed-title">Creating a Snapchat Public Profile — Without Regrets Later</h2>
+      <p class="blog-feed-excerpt">Going public is easy. Understanding what changes afterward is the part most creators skip.</p>
+      <div class="blog-feed-meta">
+        <span class="post-avatar" aria-hidden="true">NB</span>
+        <span>Nora Blake</span>
+        <span class="blog-feed-dot">Jun 14, 2026</span>
+        <span>8 min read</span>
+      </div>
+    </a>
     </div>
   </div>
 </main>
@@ -180,6 +193,7 @@
       </div>
     </div>
   </footer>
+<script src="/js/theme.js?v=1"></script>
 <script src="/js/nav.js?v=1"></script>
 </body>
 </html>

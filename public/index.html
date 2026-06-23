@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';if(d)document.documentElement.setAttribute('data-theme','dark');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'images/logo.png':'images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
   <title>Snapchat Video Downloader - Download Snapchat Stories & Spotlights - SnapSaver</title>
   <meta name="description" content="Free Snapchat video downloader to save stories, spotlights, highlights and public snaps in HD. Anonymous Snapchat story viewer — no login, no watermark, works on iPhone, Android, and desktop.">
   <meta name="keywords" content="snapchat downloader, snapchat video downloader, snapchat story downloader, download snapchat stories, snapchat spotlight downloader, snapchat viewer, anonymous snapchat story viewer, snap saver, download snapchat videos, snapchat highlights downloader">
@@ -21,8 +23,8 @@
   <meta name="twitter:title" content="Snapchat Video Downloader - SnapSaver">
   <meta name="twitter:description" content="Download Snapchat stories, videos and spotlights in HD. Free, private, and works on all devices.">
 
-  <link rel="icon" href="images/logo.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=23">
+  <link rel="icon" href="images/logo-light.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css?v=24">
 
   <!-- FAQ Schema for Google Rich Snippets -->
   <script type="application/ld+json">
@@ -139,7 +141,7 @@
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="/" class="nav-logo" id="logo">
-        <img src="images/logo.png" alt="SnapSaver Logo" width="36" height="36">
+        <img src="images/logo-light.png" data-src-light="images/logo-light.png" data-src-dark="images/logo.png" alt="SnapSaver Logo" class="theme-image" width="36" height="36">
         <span>Snap<span class="gradient-text">Saver</span></span>
       </a>
       <div class="nav-links" id="nav-links">
@@ -149,7 +151,13 @@
         <a href="#faq">FAQ</a>
         <a href="/blogs/">Blogs <span class="nav-badge">New</span></a>
       </div>
-      <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
+      <div class="nav-actions">
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to night mode" title="Night mode">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
+      </div>
     </div>
   </nav>
 
@@ -158,7 +166,7 @@
     <div class="hero-glow hero-glow--purple"></div>
     <div class="hero-glow hero-glow--cyan"></div>
     <div class="container">
-      <img src="images/logo.png" alt="SnapSaver" class="hero-logo" width="80" height="80">
+      <img src="images/logo-light.png" data-src-light="images/logo-light.png" data-src-dark="images/logo.png" alt="SnapSaver" class="hero-logo theme-image" width="80" height="80">
       <h1>Snapchat Video, <span class="gradient-text">Story Downloader</span></h1>
       <p class="hero-subtitle">Download videos, stories, highlights and spotlights from Snapchat — free, fast, and in HD quality. No sign-in or app installation required.</p>
 
@@ -454,7 +462,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" class="nav-logo">
-            <img src="images/logo.png" alt="SnapSaver" width="36" height="36">
+            <img src="images/logo-light.png" data-src-light="images/logo-light.png" data-src-dark="images/logo.png" alt="SnapSaver" class="theme-image" width="36" height="36">
             <span>Snap<span class="gradient-text">Saver</span></span>
           </a>
           <p>Free Snapchat video downloader and anonymous story viewer. Download public stories, spotlights and highlights in HD — no account required.</p>
@@ -526,6 +534,7 @@
     </div>
   </div>
 
+  <script src="js/theme.js?v=1"></script>
   <script src="js/app.js?v=23"></script>
 </body>
 </html>
