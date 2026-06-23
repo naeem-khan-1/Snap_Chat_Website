@@ -199,7 +199,7 @@ function layoutStoryViewerInsets() {
   const footer = document.querySelector('.story-viewer-footer');
   const body = document.getElementById('story-viewer-body');
 
-  if (!modal?.classList.contains('active') || !header || !footer || !body) return;
+  if (!modal?.classList.contains('active') || !header || !body) return;
 
   if (window.innerWidth > 768) {
     body.style.top = '';
@@ -209,13 +209,30 @@ function layoutStoryViewerInsets() {
   }
 
   const headerHeight = header.getBoundingClientRect().height;
-  const footerHeight = footer.getBoundingClientRect().height;
+  const footerHeight = footer && window.getComputedStyle(footer).display !== 'none'
+    ? footer.getBoundingClientRect().height
+    : 0;
 
   body.style.position = 'fixed';
   body.style.left = '0';
   body.style.right = '0';
   body.style.top = `${headerHeight}px`;
   body.style.bottom = `${footerHeight}px`;
+}
+
+function wireViewerDownloadButtons(url, type) {
+  const footerBtn = document.getElementById('story-viewer-download');
+  const topBtn = document.getElementById('story-viewer-download-top');
+
+  [footerBtn, topBtn].forEach((btn) => {
+    if (!btn) return;
+    btn.dataset.url = url;
+    btn.dataset.type = type;
+    btn.onclick = () => handleStoryDownload(btn);
+    btn.disabled = false;
+    if (btn === footerBtn) btn.innerHTML = '⬇ Download';
+    if (btn === topBtn) btn.innerHTML = '⬇ Download';
+  });
 }
 
 function hideViewerDownloadMessage() {
@@ -241,6 +258,13 @@ function fadeViewerDownloadMessage() {
 function showDownloadProgressMessage() {
   const box = document.getElementById('story-viewer-download-msg');
   const text = document.getElementById('story-viewer-download-msg-text');
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    showDismissibleToast('Downloading in progress!', 'progress', 650);
+    return;
+  }
+
   if (!box || !text) return;
 
   if (viewerMsgTimer) {
@@ -281,16 +305,13 @@ function handleStoryView(btn) {
   const modal = document.getElementById('story-viewer-modal');
   const body = document.getElementById('story-viewer-body');
   const titleEl = document.getElementById('story-viewer-title');
-  const downloadBtn = document.getElementById('story-viewer-download');
 
   titleEl.textContent = title;
   body.innerHTML = type === 'video'
     ? `<video src="${url}" controls autoplay playsinline webkit-playsinline class="story-viewer-media"></video>`
     : `<img src="${url}" alt="${title}" class="story-viewer-media">`;
 
-  downloadBtn.dataset.url = url;
-  downloadBtn.dataset.type = type;
-  downloadBtn.onclick = () => handleStoryDownload(downloadBtn);
+  wireViewerDownloadButtons(url, type);
   hideViewerDownloadMessage();
 
   modal.classList.add('active');
@@ -482,10 +503,17 @@ function handleStoryDownload(btn) {
   btn.classList.add('downloading');
   btn.disabled = true;
 
-  const isViewerDownload = btn.id === 'story-viewer-download';
+  const isViewerDownload = btn.id === 'story-viewer-download' || btn.id === 'story-viewer-download-top';
 
   if (isViewerDownload) {
     showDownloadProgressMessage();
+    const otherId = btn.id === 'story-viewer-download' ? 'story-viewer-download-top' : 'story-viewer-download';
+    const otherBtn = document.getElementById(otherId);
+    if (otherBtn) {
+      otherBtn.innerHTML = '⏳ Downloading...';
+      otherBtn.classList.add('downloading');
+      otherBtn.disabled = true;
+    }
   } else {
     showDismissibleToast('Downloading in progress!', 'progress', 650);
   }
@@ -512,6 +540,15 @@ function handleStoryDownload(btn) {
     btn.innerHTML = originalText;
     btn.classList.remove('downloading');
     btn.disabled = false;
+    if (isViewerDownload) {
+      const otherId = btn.id === 'story-viewer-download' ? 'story-viewer-download-top' : 'story-viewer-download';
+      const otherBtn = document.getElementById(otherId);
+      if (otherBtn) {
+        otherBtn.innerHTML = '⬇ Download';
+        otherBtn.classList.remove('downloading');
+        otherBtn.disabled = false;
+      }
+    }
   }, 900);
 }
 
