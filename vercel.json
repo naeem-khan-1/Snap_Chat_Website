@@ -34,7 +34,7 @@
       ]
     },
     {
-      "source": "/blog/images/(.*)",
+      "source": "/blogs/images/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=604800" }
       ]

@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const BLOG_DIR = path.join(__dirname, '../public/blog');
+const BLOG_DIR = path.join(__dirname, '../public/blogs');
 const SITE = 'https://thesnapsaver.com';
 
 const posts = [
@@ -465,23 +465,25 @@ const IMAGE_MAP = {
 posts.forEach((p) => { p.image = IMAGE_MAP[p.slug]; });
 
 function postImageUrl(post) {
-  return `${SITE}/blog/images/${post.image}`;
+  return `${SITE}/blogs/images/${post.image}`;
 }
 
 function navLinks() {
   return `
-  <nav class="navbar scrolled" id="navbar">
+  <nav class="navbar" id="navbar">
     <div class="container">
-      <a href="/" class="nav-logo">
+      <a href="/" class="nav-logo" id="logo">
         <img src="/images/logo.png" alt="SnapSaver Logo" width="36" height="36">
         <span>Snap<span class="gradient-text">Saver</span></span>
       </a>
       <div class="nav-links" id="nav-links">
         <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
         <a href="/#features">Features</a>
+        <a href="/#how-it-works">How It Works</a>
         <a href="/#faq">FAQ</a>
+        <a href="/blogs/">Blogs <span class="nav-badge">New</span></a>
       </div>
+      <button class="nav-mobile-btn" id="nav-mobile-btn" aria-label="Toggle menu">☰</button>
     </div>
   </nav>`;
 }
@@ -491,17 +493,17 @@ function footer() {
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
-        <p>&copy; 2026 SnapSaver. All rights reserved. Not affiliated with Snap Inc.</p>
-        <div>
+        <p class="footer-copy">&copy; 2026 SnapSaver. All rights reserved. Not affiliated with Snap Inc. or Snapchat.</p>
+        <p class="footer-legal-links">
           <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/dmca.html">DMCA</a>
-        </div>
+        </p>
       </div>
     </div>
   </footer>`;
 }
 
 function schemas(post) {
-  const url = `${SITE}/blog/${post.slug}.html`;
+  const url = `${SITE}/blogs/${post.slug}.html`;
   const imageUrl = postImageUrl(post);
   const schemas = [
     {
@@ -525,7 +527,7 @@ function schemas(post) {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: `${SITE}/blog/` },
+        { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${SITE}/blogs/` },
         { '@type': 'ListItem', position: 3, name: post.title, item: url }
       ]
     }
@@ -549,19 +551,19 @@ function schemas(post) {
 function relatedLinks(post) {
   return post.related.map(slug => {
     const p = posts.find(x => x.slug === slug);
-    return `<a href="/blog/${slug}.html">${p.title}</a>`;
+    return `<a href="/blogs/${slug}.html">${p.title}</a>`;
   }).join('\n        ');
 }
 
 function articlePage(post) {
-  const url = `${SITE}/blog/${post.slug}.html`;
+  const url = `${SITE}/blogs/${post.slug}.html`;
   const imageUrl = postImageUrl(post);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${post.title} | SnapSaver Blog</title>
+  <title>${post.title} | SnapSaver Blogs</title>
   <meta name="description" content="${post.description}">
   <meta name="keywords" content="snapchat, ${post.tag.toLowerCase()}, snapchat downloader, snapsaver, snapchat privacy">
   <meta name="robots" content="index, follow">
@@ -590,7 +592,7 @@ ${navLinks()}
 <main class="blog-page">
   <div class="container blog-article">
     <nav class="blog-breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Home</a> › <a href="/blog/">Blog</a> › <span>${post.tag}</span>
+      <a href="/">Home</a> › <a href="/blogs/">Blogs</a> › <span>${post.tag}</span>
     </nav>
 
     <article>
@@ -602,7 +604,7 @@ ${navLinks()}
       </div>
 
       <figure class="blog-featured-image">
-        <img src="/blog/images/${post.image}" alt="${post.title}" width="1200" height="675" loading="eager">
+        <img src="/blogs/images/${post.image}" alt="${post.title}" width="1200" height="675" loading="eager">
       </figure>
 
       ${post.content}
@@ -624,15 +626,16 @@ ${navLinks()}
 </main>
 
 ${footer()}
+<script src="/js/nav.js?v=1"></script>
 </body>
 </html>`;
 }
 
 function indexPage() {
   const cards = posts.map(p => `
-        <a href="/blog/${p.slug}.html" class="blog-card">
+        <a href="/blogs/${p.slug}.html" class="blog-card">
           <div class="blog-card-visual">
-            <img src="/blog/images/${p.image}" alt="${p.title}" width="600" height="338" loading="lazy">
+            <img src="/blogs/images/${p.image}" alt="${p.title}" width="600" height="338" loading="lazy">
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">${p.tag}</span>
@@ -647,14 +650,14 @@ function indexPage() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SnapSaver Blog — Snapchat Guides, Privacy Tips & Downloader Tutorials</title>
+  <title>SnapSaver Blogs — Snapchat Guides, Privacy Tips & Downloader Tutorials</title>
   <meta name="description" content="Expert guides on Snapchat privacy, story downloading, SnapSaver tutorials, Spotlight tips, and mobile how-tos. Free SEO-friendly Snapchat resources.">
-  <meta name="keywords" content="snapchat blog, snapchat guides, snapchat privacy, snapchat downloader tutorial, snapsaver blog">
+  <meta name="keywords" content="snapchat blogs, snapchat guides, snapchat privacy, snapchat downloader tutorial, snapsaver blogs">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${SITE}/blog/">
-  <meta property="og:image" content="${SITE}/blog/images/blog-index-hero.png">
+  <link rel="canonical" href="${SITE}/blogs/">
+  <meta property="og:image" content="${SITE}/blogs/images/blog-index-hero.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="${SITE}/blog/images/blog-index-hero.png">
+  <meta name="twitter:image" content="${SITE}/blogs/images/blog-index-hero.png">
   <link rel="icon" href="/images/logo.png" type="image/png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/blog.css">
@@ -662,9 +665,9 @@ function indexPage() {
   {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "SnapSaver Blog",
+    "name": "SnapSaver Blogs",
     "description": "Snapchat guides, privacy tips, and downloader tutorials",
-    "url": "${SITE}/blog/",
+    "url": "${SITE}/blogs/",
     "publisher": { "@type": "Organization", "name": "SnapSaver", "url": "${SITE}" }
   }
   </script>
@@ -675,10 +678,10 @@ ${navLinks()}
 <main class="blog-page">
   <div class="container">
     <figure class="blog-index-hero-image">
-      <img src="/blog/images/blog-index-hero.png" alt="SnapSaver Blog — Snapchat guides and tutorials" width="1200" height="400" loading="eager">
+      <img src="/blogs/images/blog-index-hero.png" alt="SnapSaver Blogs — Snapchat guides and tutorials" width="1200" height="400" loading="eager">
     </figure>
     <div class="blog-hero">
-      <h1>SnapSaver <span class="gradient-text">Blog</span></h1>
+      <h1>SnapSaver <span class="gradient-text">Blogs</span></h1>
       <p>Guides on Snapchat privacy, story downloading, Spotlight tips, and how to use SnapSaver responsibly on any device.</p>
     </div>
     <div class="blog-grid">
@@ -688,6 +691,7 @@ ${cards}
 </main>
 
 ${footer()}
+<script src="/js/nav.js?v=1"></script>
 </body>
 </html>`;
 }
