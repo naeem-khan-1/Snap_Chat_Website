@@ -23,6 +23,7 @@ const API_BASE = '/api';
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initSearch();
+  initStoryViewer();
   initTabs();
   initFAQ();
   initScrollTop();
@@ -72,24 +73,29 @@ function extractUsername(input) {
   let text = input.trim();
 
   // Strip protocol and www prefix
-  text = text.replace(/^https?:\/\/(www\.)?/, '');
+  text = text.replace(/^https?:\/\/(www\.)?/i, '');
 
-  // Try matching known Snapchat URL patterns
+  // Drop query params / hash before matching (e.g. ?share_id=...&locale=en-PK)
+  const pathOnly = text.split(/[?#]/)[0].replace(/\/+$/, '');
+
   const patterns = [
     /snapchat\.com\/add\/@?([a-zA-Z0-9._-]+)/i,
     /story\.snapchat\.com\/s\/@?([a-zA-Z0-9._-]+)/i,
     /snapchat\.com\/stories\/@?([a-zA-Z0-9._-]+)/i,
     /snapchat\.com\/@([a-zA-Z0-9._-]+)/i,
-    /snapchat\.com\/([a-zA-Z0-9._-]+)/i,
   ];
 
   for (const pattern of patterns) {
-    const match = text.match(pattern);
-    if (match) return match[1];
+    const match = pathOnly.match(pattern);
+    if (match?.[1]) return match[1];
   }
 
-  // Plain username — strip @ and any trailing path fragments
-  return text.replace(/^@/, '').split(/[/?#]/)[0];
+  // Plain username — not a snapchat.com URL
+  if (!pathOnly.includes('snapchat.com')) {
+    return pathOnly.replace(/^@/, '').split(/[/?#]/)[0];
+  }
+
+  return '';
 }
 
 // ---------------------------------------------------------------------------
@@ -103,7 +109,7 @@ function initSearch() {
   const resultsSection = document.getElementById('results-section');
   const storyList      = document.getElementById('story-list');
   const profileHeader  = document.getElementById('profile-header');
-  const downloadAllBar = document.getElementById('download-all-bar');
+  const storiesSummaryBar = document.getElementById('stories-summary-bar');
   const resultsError   = document.getElementById('results-error');
   const tryAgainBtn    = document.getElementById('btn-try-again');
 
@@ -129,10 +135,18 @@ function initSearch() {
 
     const username = extractUsername(raw);
 
+    if (!username) {
+      input.focus();
+      input.style.borderColor = '#ef4444';
+      showToast('Could not find a username in that link. Try pasting the profile URL or username.');
+      setTimeout(() => (input.style.borderColor = ''), 1500);
+      return;
+    }
+
     // Show loading spinner, clear previous results
     modal.classList.add('active');
     profileHeader.style.display = 'none';
-    downloadAllBar.style.display = 'none';
+    storiesSummaryBar.style.display = 'none';
     storyList.innerHTML = '';
     resultsError.classList.remove('active');
 
@@ -152,14 +166,62 @@ function initSearch() {
       showNoResults(username);
     }
   });
+}
 
-  // "Download All" — click each download button with a staggered delay
-  document.getElementById('btn-download-all')?.addEventListener('click', () => {
-    const buttons = storyList.querySelectorAll('.story-download-btn:not(:disabled)');
-    buttons.forEach((btn, i) => {
-      setTimeout(() => btn.click(), i * 1500);
-    });
+// ---------------------------------------------------------------------------
+//  Story Viewer — Preview stories in a modal
+// ---------------------------------------------------------------------------
+
+function initStoryViewer() {
+  const modal = document.getElementById('story-viewer-modal');
+  const closeBtn = document.getElementById('story-viewer-close');
+
+  closeBtn?.addEventListener('click', closeStoryViewer);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeStoryViewer();
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeStoryViewer();
+  });
+}
+
+function closeStoryViewer() {
+  const modal = document.getElementById('story-viewer-modal');
+  const body = document.getElementById('story-viewer-body');
+  const video = body?.querySelector('video');
+
+  video?.pause();
+  body.innerHTML = '';
+  modal?.classList.remove('active');
+  document.body.classList.remove('viewer-open');
+}
+
+function handleStoryView(btn) {
+  const url = btn.dataset.url;
+  const type = btn.dataset.type;
+  const title = btn.dataset.title || 'Story';
+
+  if (!url || url === '#') {
+    showToast('Preview not available for this story.');
+    return;
+  }
+
+  const modal = document.getElementById('story-viewer-modal');
+  const body = document.getElementById('story-viewer-body');
+  const titleEl = document.getElementById('story-viewer-title');
+  const downloadBtn = document.getElementById('story-viewer-download');
+
+  titleEl.textContent = title;
+  body.innerHTML = type === 'video'
+    ? `<video src="${url}" controls autoplay playsinline webkit-playsinline class="story-viewer-media"></video>`
+    : `<img src="${url}" alt="${title}" class="story-viewer-media">`;
+
+  downloadBtn.dataset.url = url;
+  downloadBtn.dataset.type = type;
+  downloadBtn.onclick = () => handleStoryDownload(downloadBtn);
+
+  modal.classList.add('active');
+  document.body.classList.add('viewer-open');
 }
 
 // ---------------------------------------------------------------------------
@@ -191,7 +253,7 @@ function renderStoryResults(profileData) {
   const resultsSection = document.getElementById('results-section');
   const storyList      = document.getElementById('story-list');
   const profileHeader  = document.getElementById('profile-header');
-  const downloadAllBar = document.getElementById('download-all-bar');
+  const storiesSummaryBar = document.getElementById('stories-summary-bar');
   const resultsError   = document.getElementById('results-error');
 
   // --- Profile card ---
@@ -216,7 +278,7 @@ function renderStoryResults(profileData) {
   }
 
   profileHeader.style.display  = 'flex';
-  downloadAllBar.style.display = 'flex';
+  storiesSummaryBar.style.display = 'flex';
   resultsError.classList.remove('active');
 
   // --- Story cards ---
@@ -234,6 +296,7 @@ function renderStoryResults(profileData) {
     const badgeIcon    = isVideo ? '🎬' : '🖼️';
     const durationStr  = isVideo ? formatDuration(story.duration) : '';
     const downloadUrl  = story.mediaUrl || '#';
+    const storyTitle   = `${story.mediaType} #${index + 1} — ${timeAgo}`;
 
     const thumbContent = story.thumbnailUrl
       ? `<img src="${story.thumbnailUrl}" alt="Story preview" loading="lazy">`
@@ -241,25 +304,42 @@ function renderStoryResults(profileData) {
 
     html += `
       <div class="story-item" data-index="${index}" style="animation: fadeUp 0.3s ${index * 0.05}s both">
-        <div class="story-thumb">
+        <div class="story-thumb"
+             role="button"
+             tabindex="0"
+             aria-label="View ${storyTitle}"
+             data-url="${downloadUrl}"
+             data-type="${story.type}"
+             data-title="${storyTitle}"
+             onclick="handleStoryView(this)"
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();handleStoryView(this);}">
           ${thumbContent}
           ${durationStr ? `<span class="media-duration">${durationStr}</span>` : ''}
         </div>
         <div class="story-details">
-          <p class="story-title">${story.mediaType} #${index + 1} — ${timeAgo}</p>
+          <p class="story-title">${storyTitle}</p>
           <div class="story-meta">
             <span class="story-badge ${badgeClass}">${badgeIcon} ${story.type}</span>
             <span>${timeAgo}</span>
             ${durationStr ? `<span>⏱ ${durationStr}</span>` : ''}
           </div>
         </div>
-        <button class="story-download-btn"
-                data-url="${downloadUrl}"
-                data-type="${story.type}"
-                data-id="${story.id}"
-                onclick="handleStoryDownload(this)">
-          ⬇ Download
-        </button>
+        <div class="story-actions">
+          <button class="story-view-btn"
+                  data-url="${downloadUrl}"
+                  data-type="${story.type}"
+                  data-title="${storyTitle}"
+                  onclick="handleStoryView(this)">
+            👁 View
+          </button>
+          <button class="story-download-btn"
+                  data-url="${downloadUrl}"
+                  data-type="${story.type}"
+                  data-id="${story.id}"
+                  onclick="handleStoryDownload(this)">
+            ⬇ Download
+          </button>
+        </div>
       </div>`;
   });
 
@@ -278,11 +358,11 @@ function renderStoryResults(profileData) {
 function showNoResults(username) {
   const resultsSection = document.getElementById('results-section');
   const profileHeader  = document.getElementById('profile-header');
-  const downloadAllBar = document.getElementById('download-all-bar');
+  const storiesSummaryBar = document.getElementById('stories-summary-bar');
   const resultsError   = document.getElementById('results-error');
 
   profileHeader.style.display  = 'none';
-  downloadAllBar.style.display = 'none';
+  storiesSummaryBar.style.display = 'none';
   document.getElementById('story-list').innerHTML = '';
   resultsError.classList.add('active');
   resultsSection.classList.add('active');
