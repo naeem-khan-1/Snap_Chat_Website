@@ -407,11 +407,12 @@ function handleStoryDownload(btn) {
     a.click();
     document.body.removeChild(a);
 
-    btn.innerHTML = '✅ Saved!';
+    btn.innerHTML = '✅ Downloaded';
+    showToast('Downloaded successfully! Check your Downloads folder or gallery.', 'success');
   } catch (err) {
     console.error('Download failed:', err);
     btn.innerHTML = '❌ Failed';
-    showToast('Download failed. Please check your connection and try again.');
+    showToast('Download failed. Please check your connection and try again.', 'error');
   }
 
   // Reset button after a short delay
@@ -431,11 +432,18 @@ function handleStoryDownload(btn) {
  * Auto-dismisses after 4 seconds.
  *
  * @param {string} message — The message to display
+ * @param {'default'|'success'|'error'} type — Toast style
  */
-function showToast(message) {
+function showToast(message, type = 'default') {
   // Remove any existing toast
   const existing = document.getElementById('snapsaver-toast');
   if (existing) existing.remove();
+
+  const borderColor = type === 'success'
+    ? 'rgba(34, 197, 94, 0.45)'
+    : type === 'error'
+      ? 'rgba(239, 68, 68, 0.45)'
+      : 'rgba(139, 92, 246, 0.3)';
 
   const toast = document.createElement('div');
   toast.id = 'snapsaver-toast';
@@ -445,7 +453,7 @@ function showToast(message) {
     background: rgba(30, 30, 60, 0.95); color: #fff; padding: 14px 28px;
     border-radius: 12px; font-size: 0.9rem; z-index: 99999;
     box-shadow: 0 8px 32px rgba(0,0,0,0.4); backdrop-filter: blur(12px);
-    border: 1px solid rgba(139, 92, 246, 0.3); max-width: 90vw; text-align: center;
+    border: 1px solid ${borderColor}; max-width: 90vw; text-align: center;
     animation: fadeUp 0.3s ease;
   `;
   document.body.appendChild(toast);

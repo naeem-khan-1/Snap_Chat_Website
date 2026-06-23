@@ -798,6 +798,10 @@ section { padding: 80px 0; }
   box-shadow: 0 24px 80px rgba(0,0,0,0.45);
 }
 
+.story-viewer-drag-handle {
+  display: none;
+}
+
 .story-viewer-header {
   display: flex;
   align-items: center;
@@ -834,17 +838,20 @@ section { padding: 80px 0; }
 
 .story-viewer-body {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   background: #000;
   min-height: 280px;
   max-height: calc(90vh - 140px);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .story-viewer-media {
   width: 100%;
-  max-height: calc(90vh - 140px);
+  max-height: none;
+  height: auto;
   object-fit: contain;
   display: block;
 }
@@ -951,31 +958,65 @@ body.viewer-open {
     min-width: 0;
   }
 
-  /* Fullscreen story viewer on mobile */
   #story-viewer-modal {
     padding: 0;
-    align-items: stretch;
+    align-items: flex-end;
+    justify-content: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   #story-viewer-modal .story-viewer {
-    width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 88vh;
+    height: auto;
+    margin-top: auto;
+    border-radius: 20px 20px 0 0;
     border: none;
+    border-top: 1px solid var(--border-color);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .story-viewer-drag-handle {
+    display: block;
+    width: 42px;
+    height: 4px;
+    margin: 10px auto 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.28);
+    flex-shrink: 0;
+  }
+
+  .story-viewer-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bg-card);
   }
 
   .story-viewer-body {
-    flex: 1;
-    min-height: 0;
+    flex: none;
+    min-height: 240px;
     max-height: none;
+    overflow: visible;
   }
 
   .story-viewer-media {
     width: 100%;
-    height: 100%;
+    height: auto;
     max-height: none;
     object-fit: contain;
+  }
+
+  .story-viewer-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background: var(--bg-card);
+    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
   }
 
   .story-viewer-footer .story-download-btn {
