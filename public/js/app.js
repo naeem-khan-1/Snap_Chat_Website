@@ -295,12 +295,12 @@ function showNoResults(username) {
 
 /**
  * Downloads a single story to the user's device.
- * Uses fetch → blob → createObjectURL → invisible <a download> click.
- * Blob URLs are always same-origin, so the browser respects the download attribute.
+ * Uses a same-origin anchor click so the browser handles the file directly
+ * from /api/download (works better for videos than fetch + blob).
  *
  * @param {HTMLButtonElement} btn — The download button that was clicked
  */
-async function handleStoryDownload(btn) {
+function handleStoryDownload(btn) {
   const url          = btn.dataset.url;
   const type         = btn.dataset.type;
   const originalText = btn.innerHTML;
@@ -316,32 +316,16 @@ async function handleStoryDownload(btn) {
   btn.disabled = true;
 
   try {
-    // Fetch the media file as a binary blob
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`Server error (${response.status})`);
-
-    const blob    = response.blob ? await response.blob() : null;
-    if (!blob) throw new Error('Could not read file data');
-
-    const blobUrl = URL.createObjectURL(blob);
-
-    // Build a filename with the correct extension
     const ext      = type === 'video' ? 'mp4' : 'jpg';
     const filename = `snapsaver_${Date.now()}.${ext}`;
 
-    // Trigger the browser's native download via an invisible link
-    const a    = document.createElement('a');
-    a.href     = blobUrl;
+    const a = document.createElement('a');
+    a.href = url;
     a.download = filename;
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
-
-    // Clean up the temporary blob URL
-    setTimeout(() => {
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
-    }, 100);
+    document.body.removeChild(a);
 
     btn.innerHTML = '✅ Saved!';
   } catch (err) {

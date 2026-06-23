@@ -54,12 +54,12 @@ app.get('/api/download', async (req, res) => {
       throw new Error(`Snapchat CDN returned ${upstream.status}`);
     }
 
-    const contentType = upstream.headers.get('content-type') || '';
+    const contentType = upstream.headers.get('content-type') || 'application/octet-stream';
     const isVideo = contentType.includes('video');
     const ext = isVideo ? 'mp4' : 'jpg';
     const buffer = await upstream.buffer();
 
-    res.setHeader('Content-Type', 'application/octet-stream');
+    res.setHeader('Content-Type', contentType);
     res.setHeader('Content-Disposition', `attachment; filename="snapsaver_${Date.now()}.${ext}"`);
     return res.send(buffer);
   } catch (err) {
