@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';if(d)document.documentElement.setAttribute('data-theme','dark');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'/images/logo.png':'/images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
+  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';var r=document.documentElement;if(d)r.setAttribute('data-theme','dark');else r.removeAttribute('data-theme');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'/images/logo.png':'/images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
   <title>What Snapchat Actually Collects About You in 2026 | SnapSaver Blogs</title>
   <meta name="description" content="What data does Snapchat collect? Learn about location tracking, ad targeting, story privacy, and how to minimize your digital footprint on Snap.">
   <meta name="keywords" content="snapchat, privacy, snapchat downloader, snapsaver, snapchat privacy">
@@ -26,8 +26,8 @@
   <meta name="twitter:description" content="What data does Snapchat collect? Learn about location tracking, ad targeting, story privacy, and how to minimize your digital footprint on Snap.">
   <meta name="twitter:image" content="https://thesnapsaver.com/blogs/images/blog-data-privacy.png">
   <link rel="icon" href="/images/logo-light.png" type="image/png">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/blog.css?v=2">
+  <link rel="stylesheet" href="/css/style.css?v=25">
+  <link rel="stylesheet" href="/css/blog.css?v=4">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -121,11 +121,14 @@
       <a href="/">Home</a> › <a href="/blogs/">Blogs</a>
     </nav>
 
-    <article class="post post--essay" itemscope itemtype="https://schema.org/BlogPosting">
+    <article class="post post--report" itemscope itemtype="https://schema.org/BlogPosting">
       <header class="post-header">
-        <a href="/blogs/" class="post-tag">Privacy</a>
+        <div class="post-header-meta">
+          <a href="/blogs/" class="post-tag">Privacy</a>
+          <span class="post-format">Privacy report</span>
+        </div>
         <h1 class="post-title" itemprop="headline">What Snapchat Actually Collects About You in 2026</h1>
-        <p class="post-dek">The privacy policy is 8,000 words. These are the bullets that affect your daily life.</p>
+        <p class="post-dek">The privacy policy is 8,000 words. These are the categories that affect your daily life.</p>
         <div class="post-byline">
           <div class="post-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
             <span class="post-avatar" aria-hidden="true">PS</span>
@@ -145,46 +148,63 @@
 
       <div class="post-body" itemprop="articleBody">
         
-      <p class="post-dropcap">Snapchat's business model is free entertainment funded by ads. That sentence tells you most of what you need to know about what data they want — the details are about which sensors and signals feed the ad engine.</p>
+      <p class="post-lead">Snapchat is free because ads pay for it. That one fact explains most of what they collect. The rest is which sensors feed the targeting engine.</p>
 
-      <h2>Data categories worth caring about</h2>
-      <p><strong>Account basics:</strong> phone number, email, birthday, display name. Required to function.</p>
-      <p><strong>Content metadata:</strong> who you message, how often you open the app, which lenses you try. Powers engagement ranking and ad frequency.</p>
-      <p><strong>Location:</strong> optional but valuable. Snap Map with Ghost Mode off reveals precise coordinates to friends — and generates place-based ad segments.</p>
-      <p><strong>Device signals:</strong> model, OS version, ad identifier, IP address. Standard across mobile apps.</p>
-      <p><strong>Inferred interests:</strong> built from lenses used, content watched, websites you visit off-platform if tracking is enabled elsewhere.</p>
+      <div class="post-data-grid">
+        <article class="post-data-card">
+          <h3>Account data</h3>
+          <p>Phone, email, birthday, display name. Required to run the service.</p>
+          <span class="post-data-tag">Required</span>
+        </article>
+        <article class="post-data-card">
+          <h3>Usage signals</h3>
+          <p>Who you message, lenses you try, time in app. Powers ranking and ad frequency.</p>
+          <span class="post-data-tag">Always on</span>
+        </article>
+        <article class="post-data-card">
+          <h3>Location</h3>
+          <p>Snap Map with Ghost Mode off shares precise coordinates. Feeds place-based ads.</p>
+          <span class="post-data-tag">Optional</span>
+        </article>
+        <article class="post-data-card">
+          <h3>Device info</h3>
+          <p>Model, OS, ad ID, IP address. Standard across mobile apps.</p>
+          <span class="post-data-tag">Automatic</span>
+        </article>
+        <article class="post-data-card">
+          <h3>Inferred interests</h3>
+          <p>Built from content watched, lenses used, and off-platform tracking if enabled.</p>
+          <span class="post-data-tag">Derived</span>
+        </article>
+        <article class="post-data-card">
+          <h3>Content metadata</h3>
+          <p>Stories vanish in 24h in the UI; backend retention may differ for safety and legal holds.</p>
+          <span class="post-data-tag">Ephemeral UI</span>
+        </article>
+      </div>
 
-      <blockquote class="post-pullquote">Stories disappear from the UI in 24 hours. Snap's servers may retain copies longer for legal, safety, and analytics reasons — read their retention schedule if that gap matters to you.</blockquote>
-
-      <h2>How long data sticks around</h2>
-      <p>Ephemeral messaging is Snapchat's brand promise, but "ephemeral" applies to the consumer experience more than the backend. Account logs, purchase records, and abuse reports stick around on different timelines. You can request your data export in Settings to see the raw dump.</p>
-
-      <h2>Reducing your footprint — realistically</h2>
+      <h2>Reducing your footprint</h2>
       <ul class="post-checklist">
         <li>Enable Ghost Mode by default</li>
-        <li>Turn off Activity-Based Ads in Ad Preferences</li>
-        <li>Revoke unnecessary iOS/Android permissions (contacts, precise location)</li>
-        <li>Use Login Verification</li>
-        <li>Delete old Memories you no longer need</li>
+        <li>Disable Activity-Based Ads in Ad Preferences</li>
+        <li>Revoke unnecessary location and contacts permissions</li>
+        <li>Request your data export in Settings to see the raw dump</li>
         <li>Audit third-party apps connected via Snapchat Login</li>
       </ul>
 
-      <h2>Third-party download tools</h2>
-      <p>When you use external sites, you add another party to the chain. Choose tools with clear privacy policies and minimal data collection. SnapSaver does not require accounts and does not store download history — but your browser and network still see the request, as with any site.</p>
-
-      <div class="post-note">Want the legal fine print? Snapchat publishes updates at snap.com/privacy. We also explain our own practices in the <a href="/privacy.html">SnapSaver Privacy Policy</a>.</div>
+      <div class="post-callout post-callout--info"><strong>Third-party tools</strong><p>External downloaders add another party to the chain. SnapSaver does not require accounts or store download history, but your browser and network still see the request.</p></div>
     
       </div>
 
       <footer class="post-footer">
         <div class="post-cta">
-          <p>Need to save a public story right now? <a href="/">Open SnapSaver</a> — free, no login, works in your browser.</p>
+          <p>Need to save a public story right now? <a href="/">Open SnapSaver</a>. It's free, needs no login, and works in your browser.</p>
         </div>
         <aside class="post-related" aria-label="Related articles">
           <h3>More to read</h3>
           <ul class="post-related-list">
           <li><a href="/blogs/snapchat-privacy-settings-complete-guide.html">Snapchat Privacy Settings: The Complete Guide for 2026</a><span>Priya Sharma · Privacy</span></li>
-          <li><a href="/blogs/is-downloading-snapchat-stories-safe-and-legal.html">Is Downloading Snapchat Stories Safe — and Legal?</a><span>Elena Vasquez · Privacy & Legal</span></li>
+          <li><a href="/blogs/is-downloading-snapchat-stories-safe-and-legal.html">Is Downloading Snapchat Stories Safe and Legal?</a><span>Elena Vasquez · Privacy & Legal</span></li>
           <li><a href="/blogs/how-to-view-snapchat-stories-anonymously.html">Watching Public Snapchat Stories Without Logging In</a><span>Priya Sharma · Privacy</span></li>
           </ul>
         </aside>
@@ -204,7 +224,7 @@
       </div>
     </div>
   </footer>
-<script src="/js/theme.js?v=1"></script>
-<script src="/js/nav.js?v=1"></script>
+<script src="/js/theme.js?v=2"></script>
+<script src="/js/nav.js?v=2"></script>
 </body>
 </html>

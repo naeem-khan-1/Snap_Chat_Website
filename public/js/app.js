@@ -404,7 +404,7 @@ function renderStoryResults(profileData) {
     const badgeIcon    = isVideo ? '🎬' : '🖼️';
     const durationStr  = isVideo ? formatDuration(story.duration) : '';
     const downloadUrl  = story.mediaUrl || '#';
-    const storyTitle   = `${story.mediaType} #${index + 1} — ${timeAgo}`;
+    const storyTitle   = `${story.mediaType} #${index + 1} · ${timeAgo}`;
 
     const thumbContent = story.thumbnailUrl
       ? `<img src="${story.thumbnailUrl}" alt="Story preview" loading="lazy">`

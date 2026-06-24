@@ -9,8 +9,12 @@ const path = require('path');
 
 const BLOG_DIR = path.join(__dirname, '../public/blogs');
 const SITE = 'https://thesnapsaver.com';
+const STYLE_VER = '25';
+const BLOG_CSS_VER = '4';
+const THEME_JS_VER = '2';
+const NAV_JS_VER = '2';
 
-const THEME_INIT = `<script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';if(d)document.documentElement.setAttribute('data-theme','dark');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'/images/logo.png':'/images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>`;
+const THEME_INIT = `<script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';var r=document.documentElement;if(d)r.setAttribute('data-theme','dark');else r.removeAttribute('data-theme');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'/images/logo.png':'/images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>`;
 
 const THEME_TOGGLE = `<button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to night mode" title="Night mode">
           <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -88,6 +92,23 @@ function footer() {
       </div>
     </div>
   </footer>`;
+}
+
+const FORMAT_LABELS = {
+  tutorial: 'Step-by-step guide',
+  reference: 'Settings reference',
+  walkthrough: 'Product walkthrough',
+  comparison: 'Side-by-side comparison',
+  briefing: 'Legal briefing',
+  faq: 'Questions & answers',
+  device: 'Mobile device guide',
+  creator: 'Creator playbook',
+  report: 'Privacy report',
+  policy: 'Compliance guide',
+};
+
+function formatLabel(layout) {
+  return FORMAT_LABELS[layout] || 'Article';
 }
 
 function formatDate(iso) {
@@ -186,8 +207,8 @@ function articlePage(post) {
   <meta name="twitter:description" content="${post.description}">
   <meta name="twitter:image" content="${imageUrl}">
   <link rel="icon" href="/images/logo-light.png" type="image/png">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/blog.css?v=2">
+  <link rel="stylesheet" href="/css/style.css?v=${STYLE_VER}">
+  <link rel="stylesheet" href="/css/blog.css?v=${BLOG_CSS_VER}">
   ${schemas(post)}
 </head>
 <body>
@@ -201,7 +222,10 @@ ${navLinks()}
 
     <article class="post post--${post.layout}" itemscope itemtype="https://schema.org/BlogPosting">
       <header class="post-header">
-        <a href="/blogs/" class="post-tag">${post.tag}</a>
+        <div class="post-header-meta">
+          <a href="/blogs/" class="post-tag">${post.tag}</a>
+          <span class="post-format">${formatLabel(post.layout)}</span>
+        </div>
         <h1 class="post-title" itemprop="headline">${post.title}</h1>
         <p class="post-dek">${post.subtitle}</p>
         <div class="post-byline">
@@ -227,7 +251,7 @@ ${navLinks()}
 
       <footer class="post-footer">
         <div class="post-cta">
-          <p>Need to save a public story right now? <a href="/">Open SnapSaver</a> — free, no login, works in your browser.</p>
+          <p>Need to save a public story right now? <a href="/">Open SnapSaver</a>. It's free, needs no login, and works in your browser.</p>
         </div>
         <aside class="post-related" aria-label="Related articles">
           <h3>More to read</h3>
@@ -241,8 +265,8 @@ ${navLinks()}
 </main>
 
 ${footer()}
-<script src="/js/theme.js?v=1"></script>
-<script src="/js/nav.js?v=1"></script>
+<script src="/js/theme.js?v=${THEME_JS_VER}"></script>
+<script src="/js/nav.js?v=${NAV_JS_VER}"></script>
 </body>
 </html>`;
 }
@@ -292,7 +316,7 @@ function indexPage() {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
   ${THEME_INIT}
-  <title>SnapSaver Blogs — Snapchat Guides, Privacy Tips & Downloader Tutorials</title>
+  <title>SnapSaver Blogs | Snapchat Guides, Privacy Tips & Downloader Tutorials</title>
   <meta name="description" content="Expert guides on Snapchat privacy, story downloading, SnapSaver tutorials, Spotlight tips, and mobile how-tos. Free SEO-friendly Snapchat resources.">
   <meta name="keywords" content="snapchat blogs, snapchat guides, snapchat privacy, snapchat downloader tutorial, snapsaver blogs">
   <meta name="robots" content="index, follow">
@@ -301,8 +325,8 @@ function indexPage() {
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="${SITE}/blogs/images/blog-index-hero.png">
   <link rel="icon" href="/images/logo-light.png" type="image/png">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/blog.css?v=2">
+  <link rel="stylesheet" href="/css/style.css?v=${STYLE_VER}">
+  <link rel="stylesheet" href="/css/blog.css?v=${BLOG_CSS_VER}">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -321,7 +345,7 @@ ${navLinks()}
   <div class="container">
     <header class="blog-index-header">
       <h1>SnapSaver <span class="gradient-text">Blogs</span></h1>
-      <p>Guides on Snapchat privacy, downloading, and creator tools — written by people who actually use the product.</p>
+      <p>Guides on Snapchat privacy, downloading, and creator tools, written by people who actually use the product.</p>
     </header>
     ${featuredBlock}
     <div class="blog-feed">
@@ -331,8 +355,8 @@ ${navLinks()}
 </main>
 
 ${footer()}
-<script src="/js/theme.js?v=1"></script>
-<script src="/js/nav.js?v=1"></script>
+<script src="/js/theme.js?v=${THEME_JS_VER}"></script>
+<script src="/js/nav.js?v=${NAV_JS_VER}"></script>
 </body>
 </html>`;
 }

@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';if(d)document.documentElement.setAttribute('data-theme','dark');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'images/logo.png':'images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
+  <script>(function(){try{var d=localStorage.getItem('snapsaver-theme')==='dark';var r=document.documentElement;if(d)r.setAttribute('data-theme','dark');else r.removeAttribute('data-theme');function u(dm){document.querySelectorAll('img[data-src-dark]').forEach(function(i){i.src=dm?i.getAttribute('data-src-dark'):i.getAttribute('data-src-light');});var f=document.querySelector('link[rel="icon"]');if(f)f.href=dm?'images/logo.png':'images/logo-light.png';}document.addEventListener('DOMContentLoaded',function(){u(d);});}catch(e){}})();</script>
   <title>Snapchat Video Downloader - Download Snapchat Stories & Spotlights - SnapSaver</title>
-  <meta name="description" content="Free Snapchat video downloader to save stories, spotlights, highlights and public snaps in HD. Anonymous Snapchat story viewer — no login, no watermark, works on iPhone, Android, and desktop.">
+  <meta name="description" content="Free Snapchat video downloader to save stories, spotlights, highlights and public snaps in HD. Anonymous Snapchat story viewer with no login, no watermark. Works on iPhone, Android, and desktop.">
   <meta name="keywords" content="snapchat downloader, snapchat video downloader, snapchat story downloader, download snapchat stories, snapchat spotlight downloader, snapchat viewer, anonymous snapchat story viewer, snap saver, download snapchat videos, snapchat highlights downloader">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://thesnapsaver.com/">
 
   <!-- Open Graph -->
   <meta property="og:title" content="Snapchat Video Downloader - Download Snapchat Stories & Spotlights - SnapSaver">
-  <meta property="og:description" content="Download Snapchat videos, stories, spotlights and highlights in HD. Free online Snapchat downloader with anonymous story viewer — no app or login required.">
+  <meta property="og:description" content="Download Snapchat videos, stories, spotlights and highlights in HD. Free online Snapchat downloader with anonymous story viewer. No app or login required.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thesnapsaver.com/">
   <meta property="og:image" content="https://thesnapsaver.com/images/logo.png">
@@ -24,7 +24,7 @@
   <meta name="twitter:description" content="Download Snapchat stories, videos and spotlights in HD. Free, private, and works on all devices.">
 
   <link rel="icon" href="images/logo-light.png" type="image/png">
-  <link rel="stylesheet" href="css/style.css?v=24">
+  <link rel="stylesheet" href="css/style.css?v=25">
 
   <!-- FAQ Schema for Google Rich Snippets -->
   <script type="application/ld+json">
@@ -168,7 +168,7 @@
     <div class="container">
       <img src="images/logo-light.png" data-src-light="images/logo-light.png" data-src-dark="images/logo.png" alt="SnapSaver" class="hero-logo theme-image" width="80" height="80">
       <h1>Snapchat Video, <span class="gradient-text">Story Downloader</span></h1>
-      <p class="hero-subtitle">Download videos, stories, highlights and spotlights from Snapchat — free, fast, and in HD quality. No sign-in or app installation required.</p>
+      <p class="hero-subtitle">Download videos, stories, highlights and spotlights from Snapchat. Free, fast, and in HD quality. No sign-in or app installation required.</p>
 
       <form id="search-form" class="search-box" role="search">
         <input type="text" id="search-input" placeholder="Enter Snapchat username or paste story / spotlight link..." aria-label="Snapchat username or URL" autocomplete="off">
@@ -202,7 +202,7 @@
           <span id="profile-avatar-fallback">👻</span>
         </div>
         <div class="profile-info">
-          <h2 class="profile-name" id="profile-name">—</h2>
+          <h2 class="profile-name" id="profile-name"></h2>
           <p class="profile-username" id="profile-username">@username</p>
           <p class="profile-bio" id="profile-bio" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;"></p>
         </div>
@@ -247,8 +247,8 @@
   <!-- ===== FEATURES ===== -->
   <section id="features">
     <div class="container">
-      <h2 class="section-title">Why Use <span class="gradient-text">SnapSaver</span> — Snapchat Downloader</h2>
-      <p class="section-subtitle">Our Snapchat video downloader lets you save stories, spotlights, highlights and public snaps in HD quality — without watermarks, directly through your browser.</p>
+      <h2 class="section-title">Why Use <span class="gradient-text">SnapSaver</span> as Your Snapchat Downloader</h2>
+      <p class="section-subtitle">Our Snapchat video downloader lets you save stories, spotlights, highlights and public snaps in HD quality, without watermarks, directly through your browser.</p>
 
       <div class="features-grid">
         <article class="feature-card" id="feature-stories">
@@ -264,7 +264,7 @@
         <article class="feature-card" id="feature-quality">
           <div class="feature-icon">🎯</div>
           <h3>HD &amp; Full Quality</h3>
-          <p>Download Snapchat videos in the highest available quality — Full HD when the source supports it. Original clarity preserved.</p>
+          <p>Download Snapchat videos in the highest available quality, including Full HD when the source supports it. Original clarity preserved.</p>
         </article>
         <article class="feature-card" id="feature-fast">
           <div class="feature-icon">⚡</div>
@@ -274,17 +274,17 @@
         <article class="feature-card" id="feature-anonymous">
           <div class="feature-icon">🔒</div>
           <h3>Anonymous Story Viewer</h3>
-          <p>Preview and download public Snapchat stories privately. No login required — we never store or share your downloads.</p>
+          <p>Preview and download public Snapchat stories privately. No login required. We never store or share your downloads.</p>
         </article>
         <article class="feature-card" id="feature-free">
           <div class="feature-icon">🎁</div>
           <h3>Free &amp; Unlimited</h3>
-          <p>Completely free Snapchat downloader with unlimited use. No registration, no hidden fees — just paste a link and download.</p>
+          <p>Completely free Snapchat downloader with unlimited use. No registration, no hidden fees. Just paste a link and download.</p>
         </article>
       </div>
 
       <p class="section-subtitle" style="margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto; text-align: left; line-height: 1.8;">
-        SnapSaver also includes a Snapchat viewer that lets you watch or preview stories and snaps anonymously before downloading. Whether you use a phone, tablet or computer, you can quickly download Snapchat videos without sign-in or software installation. Just enter a username or paste a link in our Snapchat downloader to start instantly. SnapSaver supports stories, highlights, spotlights and public snaps — all in the best possible video quality for personal offline viewing.
+        SnapSaver also includes a Snapchat viewer that lets you watch or preview stories and snaps anonymously before downloading. Whether you use a phone, tablet or computer, you can quickly download Snapchat videos without sign-in or software installation. Just enter a username or paste a link in our Snapchat downloader to start instantly. SnapSaver supports stories, highlights, spotlights and public snaps, all in the best possible video quality for personal offline viewing.
       </p>
     </div>
   </section>
@@ -304,7 +304,7 @@
         <div class="step-card">
           <div class="step-number">1</div>
           <h3>Find the Video or Story</h3>
-          <p>Open Snapchat and copy the link of the story, spotlight or video you want to download — or enter the public username in SnapSaver.</p>
+          <p>Open Snapchat and copy the link of the story, spotlight or video you want to download, or enter the public username in SnapSaver.</p>
         </div>
         <div class="step-card">
           <div class="step-number">2</div>
@@ -331,7 +331,7 @@
           <div class="tool-icon">📖</div>
           <div>
             <h3>Download Stories Without Watermark</h3>
-            <p>Save public Snapchat stories in HD — step-by-step guide</p>
+            <p>Save public Snapchat stories in HD. Step-by-step guide.</p>
           </div>
           <span class="tool-arrow">›</span>
         </a>
@@ -465,7 +465,7 @@
             <img src="images/logo-light.png" data-src-light="images/logo-light.png" data-src-dark="images/logo.png" alt="SnapSaver" class="theme-image" width="36" height="36">
             <span>Snap<span class="gradient-text">Saver</span></span>
           </a>
-          <p>Free Snapchat video downloader and anonymous story viewer. Download public stories, spotlights and highlights in HD — no account required.</p>
+          <p>Free Snapchat video downloader and anonymous story viewer. Download public stories, spotlights and highlights in HD. No account required.</p>
         </div>
         <div class="footer-col">
           <h4>Guides</h4>
@@ -534,7 +534,7 @@
     </div>
   </div>
 
-  <script src="js/theme.js?v=1"></script>
+  <script src="js/theme.js?v=2"></script>
   <script src="js/app.js?v=23"></script>
 </body>
 </html>

@@ -58,4 +58,7 @@
       setTheme(getTheme() === 'dark' ? 'light' : 'dark');
     });
   });
+
+  // Apply immediately when script loads (keeps theme in sync across pages)
+  applyTheme(getTheme());
 })();
